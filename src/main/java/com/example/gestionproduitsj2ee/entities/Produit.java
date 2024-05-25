@@ -1,9 +1,6 @@
 package com.example.gestionproduitsj2ee.entities;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -24,7 +21,9 @@ public class Produit {
 
     private int quantite;
 
-    @ManyToOne
+    @Getter
+    @Setter
+    @Enumerated(EnumType.STRING)
     private Categorie categorie;
 
 }

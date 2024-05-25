@@ -1,55 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="menu">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Edit Produits</title>
-  <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
-
-
+  <title>Edit Product</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div layout:fragment="content">
-  <div class="p-3">
-    <div class="card">
-      <div class="card-header">Edit Produit</div>
-      <form method="post", th:action="@{save}">
+<div class="container mt-5">
+  <h1 class="mb-4">Edit Product</h1>
+  <form th:action="@{/save}" th:object="${produit}" method="post" class="border p-4 bg-light">
+    <input type="hidden" th:field="*{id}">
+    <input type="hidden" name="currentPage" th:value="${currentPage}">
+    <input type="hidden" name="size" th:value="${size}">
+    <input type="hidden" name="searchName" th:value="${searchName}">
 
-        <input id ="id" type="hidden" name="id" th:value="${produit.id}">
-        <input   type="hidden" name="currentPage" th:value="${currentPage}">
-        <input   type="hidden" name="size" th:value="${size}">
-        <input  type="hidden" name="searchName" th:value="${searchName}">
-
-        <div class="mb-3">
-          <label for ="nom" class="form-control">Nom</label>
-          <input id ="nom" type="text" name="nom" th:value="${produit.nom}">
-        </div>
-
-        <div class="mb-3">
-          <label for ="description" class="form-control">Description</label>
-          <input id ="description" type="text" name="description" th:value="${produit.description}">
-        </div>
-        <div class="mb-3">
-          <label for ="prix" class="form-control">Description</label>
-          <input id ="prix" type="text" name="prix" th:value="${produit.prix}">
-        </div>
-        <div class="mb-3">
-          <label for ="quantite" class="form-control">Quantite</label>
-          <input id ="quantite" type="text" name="quantite" th:value="${produit.quantite}">
-        </div>
-
-
-
-        <button class="btn btn-primary" type="submit">Update</button>
-
-      </form>
-
-
+    <div class="form-group">
+      <label for="nom">Name:</label>
+      <input type="text" id="nom" th:field="*{nom}" class="form-control" required />
     </div>
-  </div>
-
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" id="description" th:field="*{description}" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="prix">Price:</label>
+      <input type="text" id="prix" th:field="*{prix}" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="quantite">Quantity:</label>
+      <input type="text" id="quantite" th:field="*{quantite}" class="form-control" required />
+    </div>
+    <div class="form-group">
+      <label for="categorie">Category:</label>
+      <select id="categorie" th:field="*{categorie}" class="form-control">
+        <option th:each="cat : ${categories}" th:value="${cat}" th:text="${cat}"></option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a th:href="@{/index}" class="btn btn-secondary ml-2">Back to list</a>
+  </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+

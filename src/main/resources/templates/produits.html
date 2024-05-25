@@ -14,10 +14,10 @@
 <div layout:fragment="content">
 <div class="p-3">
     <div class="card">
-        <div class="card-header">Liste Patients</div>
+        <div class="card-header">Liste Produits</div>
 <form method="get", th:action="@{index}">
     <input type="text" name="search" th:value="${searchName}">
-    <button class="btn btn-primary" type="submit">Search</button>
+    <button class="btn btn-primary" type="submit">Chercher</button>
 
 </form>
 
@@ -45,7 +45,6 @@
                         <td th:text="${produit.prix}"></td>
                         <td th:text="${produit.quantite}"></td>
                         <td th:text="${produit.categorie}"></td>
-
                         <td >
                             <a class="btn btn-danger"
                                th:href="@{delete(page=${currentPage}, size=${size}, search=${searchName}, id=${produit.id})}"> Delete </a>
