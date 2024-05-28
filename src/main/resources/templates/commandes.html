@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="menu">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Commandes</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="p-3">
+        <div class="card">
+            <div class="card-header">Liste Commandes</div>
+            <form method="get" th:action="@{/commandes/index}">
+                <input type="text" name="search" th:value="${searchStatus}" placeholder="Rechercher par statut">
+                <button class="btn btn-primary" type="submit">Chercher</button>
+            </form>
+
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Client</td>
+                        <td>Produits</td>
+                        <td>Date</td>
+                        <td>Total</td>
+                        <td>Statut</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="commande : ${pageCommandes}">
+                        <td th:text="${commande.id}"></td>
+                        <td th:text="${commande.client.nom}"></td>
+                        <td>
+                            <span th:each="produit : ${commande.produits}" th:text="${produit.nom + ', '}"></span>
+                        </td>
+                        <td th:text="${#dates.format(commande.date, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${commande.total}"></td>
+                        <td th:text="${commande.statut}"></td>
+                        <td>
+                            <a class="btn btn-danger"
+                               th:href="@{/commandes/delete(id=${commande.id}, page=${currentPage}, size=${size}, search=${searchStatus})}"> Delete </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-dark"
+                               th:href="@{/commandes/edit(id=${commande.id}, page=${currentPage}, size=${size}, search=${searchStatus})}"> Edit </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div class="container">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item me-2"
+                            th:each="p : ${tabPages}">
+                            <a th:text="${p + 1}"
+                               th:class="${p == currentPage ? 'btn btn-primary' : 'btn btn-outline-primary'}"
+                               th:href="@{/commandes/index(page=${p}, size=${size}, search=${searchStatus})}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

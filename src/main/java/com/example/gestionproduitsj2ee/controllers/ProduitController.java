@@ -1,4 +1,4 @@
-package com.example.gestionproduitsj2ee.controller;
+package com.example.gestionproduitsj2ee.controllers;
 
 import com.example.gestionproduitsj2ee.entities.Categorie;
 import com.example.gestionproduitsj2ee.entities.Produit;
@@ -81,5 +81,6 @@ public class ProduitController {
         model.addAttribute("searchName", search);
         return "formEditProduit";
     }
+
 }
 

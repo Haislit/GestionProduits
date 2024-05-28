@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="menu">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Clients</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.2/css/bootstrap.min.css">
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="p-3">
+        <div class="card">
+            <div class="card-header">Liste des Clients</div>
+            <form method="get" th:action="@{/clients}">
+                <input type="text" name="search" th:value="${searchName}" placeholder="Rechercher par nom">
+                <button class="btn btn-primary" type="submit">Chercher</button>
+            </form>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Id</td>
+                        <td>Nom</td>
+                        <td>Adresse</td>
+                        <td>Téléphone</td>
+                        <td>Email</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="client : ${pageClients}">
+                        <td th:text="${client.id}"></td>
+                        <td th:text="${client.nom}"></td>
+                        <td th:text="${client.adresse}"></td>
+                        <td th:text="${client.telephone}"></td>
+                        <td th:text="${client.email}"></td>
+                        <td>
+                            <a class="btn btn-danger" th:href="@{/clients/delete(id=${client.id}, page=${currentPage}, size=${size}, search=${searchStatus})}">Delete</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-dark" th:href="@{/clients/edit(id=${client.id}, page=${currentPage}, size=${size}, search=${searchStatus})}">Edit</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="container">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item me-2" th:each="p : ${tabPages}">
+                            <a th:text="${p + 1}" th:class="${p == currentPage ? 'btn btn-primary' : 'btn btn-outline-primary'}" th:href="@{/clients(page=${p}, size=${size}, search=${searchName})}"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
